@@ -4,7 +4,7 @@ const clear = document.querySelector(".clear");
 const dateElement = document.getElementById("date");
 const list = document.getElementById("list");
 const input = document.getElementById("input");
-
+const addbtn = document.querySelector(".addbtn")
 // Classes names
 const CHECK = "fa-check-circle";
 const UNCHECK = "fa-circle-thin";
@@ -69,29 +69,14 @@ function addToDo(toDo, id, done, trash){
 
 // add an item to the list user the enter key
 document.addEventListener("keyup",function(even){
-    if(event.keyCode == 13){
-        const toDo = input.value;
-        
-        // if the input isn't empty
-        if(toDo){
-            addToDo(toDo, id, false, false);
-            
-            LIST.push({
-                name : toDo,
-                id : id,
-                done : false,
-                trash : false
-            });
-            
-            // add item to localstorage ( this code must be added where the LIST array is updated)
-            localStorage.setItem("TODO", JSON.stringify(LIST));
-            
-            id++;
-        }
-        input.value = "";
+    if(event.keyCode == 13){  
+       addFunction();
     }
 });
 
+document.addEventListener("click",() => {
+     addFunction();
+})
 
 // complete to do
 function completeToDo(element){
@@ -128,8 +113,26 @@ list.addEventListener("click", function(event){
     localStorage.setItem("TODO", JSON.stringify(LIST));
 });
 
-
-
+function addFunction(){
+    const toDo = input.value;
+     // if the input isn't empty
+     if(toDo){
+        addToDo(toDo, id, false, false);
+        
+        LIST.push({
+            name : toDo,
+            id : id,
+            done : false,
+            trash : false
+        });
+        
+        // add item to localstorage ( this code must be added where the LIST array is updated)
+        localStorage.setItem("TODO", JSON.stringify(LIST));
+        
+        id++;
+    }
+    input.value = "";
+}
 
 
 
